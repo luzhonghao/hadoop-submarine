@@ -22,6 +22,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.submarine.commons.cluster.ClusterClient;
 import org.apache.submarine.commons.cluster.meta.ClusterMeta;
 import org.apache.submarine.commons.utils.SubmarineConfiguration;
+import org.apache.zeppelin.display.AngularObjectRegistry;
 import org.apache.zeppelin.interpreter.InterpreterContext;
 import org.apache.zeppelin.interpreter.InterpreterOutput;
 import org.apache.zeppelin.interpreter.remote.RemoteInterpreterUtils;
@@ -248,6 +249,7 @@ public class InterpreterProcess extends Thread implements Interpreter {
 
   protected static InterpreterContext getIntpContext() {
     return InterpreterContext.builder()
+        .setAngularObjectRegistry(new AngularObjectRegistry( "", null))
         .setInterpreterOut(new InterpreterOutput(null))
         .build();
   }

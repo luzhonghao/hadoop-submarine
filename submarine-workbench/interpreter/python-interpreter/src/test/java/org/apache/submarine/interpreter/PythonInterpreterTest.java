@@ -57,9 +57,24 @@ public class PythonInterpreterTest {
     }
   }
 
+  @Test
+  public void testMatplot() {
+
+    String code = "import matplotlib.pyplot as plt\n" +
+        "z.configure_mpl(interactive=False)\n" +
+        "plt.plot([1, 2, 3])\n" +
+        "plt.show()\n";
+    InterpreterResult result = pythonInterpreterForCancel.interpret(code);
+    System.out.println(" get result code : " + InterpreterResult.Code.SUCCESS + " , and msg is:");
+    LOG.info(result.message().toString());
+    assertEquals(InterpreterResult.Code.SUCCESS, result.code());
+    assertTrue(result.message().get(1).getData().contains("data:image/png;base64"));
+    assertTrue(result.message().get(1).getData().contains("<div>"));
+  }
+
 
   @Test
-  public void calcOnePlusOne() {
+  public void testCalcOnePlusOne() {
     String code = "1+1";
     InterpreterResult result = pythonInterpreterForCancel.interpret(code);
     LOG.info("result = {}", result);
